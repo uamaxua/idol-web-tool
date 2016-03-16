@@ -1,0 +1,32 @@
+.connector-on {
+	border: solid 1px grey;
+	background-color: #66cc99;
+	text-align: center;
+	
+}
+
+.connector-off {
+	border: solid 1px grey;
+	background-color: #ff9999;
+	text-align: center;
+	
+}
+
+.connector-pending {
+	border: solid 1px grey;
+	background-color: white;
+	text-align: center;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-link {
+	text-decoration: none !important;
+}

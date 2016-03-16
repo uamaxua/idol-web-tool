@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Idol test</title>
+</h:head>
+<h:body>
+
+	<h:form id="form">
+
+		<p:growl id="msgs" showDetail="true" />
+		<p:tabView orientation="top">
+			<p:tab title="HttpConnector">
+				<h:panelGrid columns="2" cellpadding="10">
+					<h:outputText id="status"
+						value="Статус HttpConnector: ${httpConnectorView.httpConnectorStatus}" />
+				</h:panelGrid>
+				<p:commandButton value="Выкл. HttpConnector" icon=".ui-icon-stop"
+					action="#{httpConnectorView.offHttpServer()}" />
+				<p:commandButton value="Вкл. HttpConnector" icon="ui-icon-play"
+					action="#{httpConnectorView.onHttpServer()}" />
+				<p:commandButton value="Обновить"
+					action="#{httpConnectorView.getStatus()}" update="status"
+					icon="ui-icon-refresh" />
+
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:graphicImage name="images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+			</p:tab>
+			<p:tab title="Twitter Connector">
+				<h:panelGrid columns="2" cellpadding="10">
+
+				</h:panelGrid>
+			</p:tab>
+
+		</p:tabView>
+	</h:form>
+
+
+
+</h:body>
+</html>
