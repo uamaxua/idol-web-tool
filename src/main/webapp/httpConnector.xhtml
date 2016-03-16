@@ -11,15 +11,69 @@
 <h:body>
 
 	<ui:composition template="/templates/common.xhtml">
-			<ui:define name="content">
-			<h:form id="content-form">
-			<div>
-				<h:outputText id="status"
-					value="Статус HttpConnector 10.24.1.51:  #{connectorsView.httpConnectorStatus}" />
-			</div>
-		</h:form>
-			</ui:define>
+		<ui:define name="content">
+
+			<p:tabView id="tabView1" binding="#{httpConnectorView.tabView}">
+
+				<p:tab title="Конфигурационный файл">
+					<p:outputPanel deferred="true">
+						<pre>#{httpConnectorView.cfgFileContent}</pre>
+					</p:outputPanel>
+				</p:tab>
+				<p:tab title="Вкладка 2">
+					<h:form id="content-form">
+						<div>
+							<h:outputText id="status"
+								value="Статус HttpConnector 10.24.1.51:" />
+						</div>
+
+						<p:fieldset legend="Задания по накоплению:">
+
+							<div class="ui-grid ui-grid-responsive">
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-6">
+										<p:outputLabel value="Task Threads:" for="taskThreads" />
+									</div>
+									<div class="ui-grid-col-6">
+										<p:inputText id="taskThreads"
+											value="#{httpConnectorView.taskThreads}" />
+									</div>
+								</div>
+
+								<div class="ui-grid-row">
+									<div class="ui-grid-col-6">
+										<p:outputLabel value="Spider Jobs:" />
+									</div>
+									<div class="ui-grid-col-6">
+										 <h:dataTable value="#{httpConnectorView.fetchTasksList}" var="fetchTask">
+											<h:column>
+											#{fetchTask}
+											</h:column>
+											
+										</h:dataTable> 
+									</div>
+								</div>
+							</div>
+
+							<p:commandButton value="Тест"
+								actionListener="#{httpConnectorView.saveFile()}" />
+						</p:fieldset>
+
+
+					</h:form>
+				</p:tab>
+				<p:tab title="Вкладка 3">
+
+				</p:tab>
+			</p:tabView>
+
+
+
+
+
+
+		</ui:define>
 	</ui:composition>
-	
+
 </h:body>
 </html>

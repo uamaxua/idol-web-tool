@@ -30,3 +30,12 @@
 .ui-link {
 	text-decoration: none !important;
 }
+
+.ui-accordion-content{
+	padding:0px !important;
+}
+
+.rightMenu td{
+	 text-align: center;
+}
+ 

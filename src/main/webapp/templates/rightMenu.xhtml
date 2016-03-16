@@ -5,11 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-
 </h:head>
 
 <h:body>
-
 
 	<ui:composition>
 		<f:facet name="header">
@@ -18,114 +16,32 @@
 		</f:facet>
 
 		<h:form id="rightMenuForm">
-			<h:panelGroup id="panelGroupForRightMenu">
 
-				<div
-					class="#{connectorsView.httpConnectorStatusCode eq '4' ? 'connector-on' :
-					(connectorsView.httpConnectorStatusCode eq '1' ? 'connector-off' : 'connector-pending')}">
+			<ui:repeat var="connector" value="#{connectorsView.connectorsList}">
+				<div class="#{connectorsView.getClassNameForStatus(connector)}">
 					<p>
-						<p:link outcome="httpConnector"
-							value="Http коннектор: #{connectorsView.httpConnectorStatus}" />
+
+						<h:outputLink value="httpConnector.xhtml">
+						<div>#{connector.aliasName} <br/> (#{connector.ip}): <br/> #{connectorsView.getStatus(connector)}</div>
+						</h:outputLink>
 
 						<p:commandButton value="Включить" icon="ui-icon-play"
-							action="#{connectorsView.startHttpConnector}"
-							rendered="#{connectorsView.httpConnectorStatusCode == '1'}"
+							action="#{connectorsView.start(connector)}"
+							rendered="#{connectorsView.isReadyToStart(connector)}"
 							onsuccess="doAfter()" />
 
 						<p:commandButton value="Выключить" icon="ui-icon-close"
-							action="#{connectorsView.stopHttpConnector}"
-							rendered="#{connectorsView.httpConnectorStatusCode == '4'}"
+							action="#{connectorsView.stop(connector)}"
+							rendered="#{connectorsView.isReadyToStop(connector)}"
 							onsuccess="doAfter()" />
-
 					</p>
 				</div>
 
-				<div
-					class="#{connectorsView.webConnectorStatusCode eq '4' ? 'connector-on' :
-					connectorsView.webConnectorStatusCode eq '1' ? 'connector-off' : 'connector-pending'}">
-					<p>
-						<p:link outcome="webConnector"
-							value="Web коннектор: #{connectorsView.webConnectorStatus}" />
+			</ui:repeat>
 
-						<p:commandButton value="Включить" icon="ui-icon-play"
-							action="#{connectorsView.startWebConnector}"
-							rendered="#{connectorsView.webConnectorStatusCode == '1'}"
-							onsuccess="doAfter()" />
-
-						<p:commandButton value="Выключить" icon="ui-icon-close"
-							action="#{connectorsView.stopWebConnector}"
-							rendered="#{connectorsView.webConnectorStatusCode == '4'}"
-							onsuccess="doAfter()" />
-
-
-					</p>
-				</div>
-
-				<div
-					class="#{connectorsView.twitterConnectorStatusCode eq '4' ? 'connector-on' :
-					connectorsView.twitterConnectorStatusCode eq '1' ? 'connector-off' : 'connector-pending'}">
-					<p>
-						<p:link outcome="twitterConnector"
-							value="Twitter коннектор: #{connectorsView.twitterConnectorStatus}" />
-
-						<p:commandButton value="Включить" icon="ui-icon-play"
-							action="#{connectorsView.startTwitterConnector}"
-							rendered="#{connectorsView.twitterConnectorStatusCode == '1'}"
-							onsuccess="doAfter()" />
-
-						<p:commandButton value="Выключить" icon="ui-icon-close"
-							action="#{connectorsView.stopTwitterConnector}"
-							rendered="#{connectorsView.twitterConnectorStatusCode == '4'}"
-							onsuccess="doAfter()" />
-
-					</p>
-				</div>
-
-				<div
-					class="#{connectorsView.socialMediaConnectorStatusCode eq '4' ? 'connector-on' :
-					connectorsView.socialMediaConnectorStatusCode eq '1' ? 'connector-off' : 'connector-pending'}">
-					<p>
-						<p:link outcome="socialMediaConnector"
-							value="Social Media коннектор: #{connectorsView.socialMediaConnectorStatus}" />
-
-						<p:commandButton value="Включить" icon="ui-icon-play"
-							action="#{connectorsView.startSocialMediaConnector}"
-							rendered="#{connectorsView.socialMediaConnectorStatusCode == '1'}"
-							onsuccess="doAfter()" />
-
-						<p:commandButton value="Выключить" icon="ui-icon-close"
-							action="#{connectorsView.stopSocialMediaConnector}"
-							rendered="#{connectorsView.socialMediaConnectorStatusCode == '4'}"
-							onsuccess="doAfter()" />
-
-					</p>
-				</div>
-
-				<div
-					class="#{connectorsView.fileConnectorStatusCode eq '4' ? 'connector-on' :
-					connectorsView.fileConnectorStatusCode eq '1' ? 'connector-off' : 'connector-pending'}">
-					<p>
-						<p:link outcome="fileConnector"
-							value="File коннектор: #{connectorsView.fileConnectorStatus}" />
-
-						<p:commandButton value="Включить" icon="ui-icon-play"
-							action="#{connectorsView.startFileConnector}"
-							rendered="#{connectorsView.fileConnectorStatusCode == '1'}"
-							onsuccess="doAfter()" />
-
-						<p:commandButton value="Выключить" icon="ui-icon-close"
-							action="#{connectorsView.stopFileConnector}"
-							rendered="#{connectorsView.fileConnectorStatusCode == '4'}"
-							onsuccess="doAfter()" />
-
-
-					</p>
-				</div>
-
-			</h:panelGroup>
-
-			<p:remoteCommand name="doAfter" update="rightMenuForm content-form" />
+			<p:remoteCommand name="doAfter" update="rightMenuForm" />
 		</h:form>
+
 	</ui:composition>
 
 </h:body>
